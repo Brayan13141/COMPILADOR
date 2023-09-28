@@ -5,6 +5,7 @@
 package compilador1;
 
 import java.nio.charset.CodingErrorAction;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,23 +20,25 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void depurarCodigo() {
+    public ArrayList depurarCodigo() {
         String codigo = TXTAREAINPUT.getText();
         String corte1 = "", a = "";
+        ArrayList<Integer> espacios = new ArrayList<Integer>();
         for (int i = 0; i < codigo.length(); i++) {
             corte1 = codigo.substring(i, i + 1);
             if (!corte1.equals("")) {
                 if (corte1.equals("\n")) {
-
-                } else if (corte1.equals("/") && codigo.substring(i+1, i + 2).equals("*")) {
-                    int h =i+2;
-                    String corte2= "";
-                    for(;;)
-                    {
-                        corte2 = codigo.substring(h,h+1);
-                        if(corte2.equals("*")){
-                            
+                    espacios.add(i);
+                } else if (corte1.equals("/") && codigo.substring(i + 1, i + 2).equals("*")) {
+                    int h = i + 2;
+                    String corte2 = "";
+                    for (;;) {
+                        corte2 = codigo.substring(h, h + 1);
+                        if (corte2.equals("*") && codigo.substring(h + 1, h + 2).equals("/")) {
+                            i = h + 1;
+                            break;
                         }
+                        h++;
                     }
                 } else {
                     a += corte1;
@@ -43,7 +46,26 @@ public class NewJFrame extends javax.swing.JFrame {
 
             }
         }
-        TXTCODIGODEPURADO.setText(a);
+        TXTCODIGODEPURADO.setText(Agregarespacios(espacios, a));
+        return espacios;
+    }
+
+    public String Agregarespacios(ArrayList A, String B) {
+        int a = 0;String nuevo="";int b=0;
+        for (int i = 0; i < A.size(); i++) {
+            a = (int) A.get(i);
+            for (int h = 0; h<=a; h++) {
+                nuevo+=B.charAt(h);
+                b=h-1;
+            }
+            nuevo+="\n";
+            b++;
+            for(;b<B.length();b++)
+            {
+                nuevo+=B.charAt(b);
+            }
+        }
+        return nuevo;
     }
 
     /**
