@@ -1,0 +1,85 @@
+package analizadores; 
+import java_cup.runtime.Symbol;
+
+/*PARSER NOS PERMITE RETORNAR EL CODIGO QUE SE ESTA ANALIZANDO*/
+parser code 
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posi  ble una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+    }  
+:} 
+
+/*--------------------------SIMBOLOS TERMINALES--------------------------*/
+terminal IDU, TD, ODA, FI, LLA, LLC, PA, PC, COA, COC, OPA, DOP, OPT,
+    OPL, OPR, CA, MA, CL, TM, ISE, IMP, CE, BR, ASR, CS, PRIF, PRE,
+    PRSW, PRW, VTB, TH, SY, PCK, RTN, SPR, INC, CBL, CLN, DF,
+    _NUe, ST, STR, PRDO, INOF, EXTS, FIN, NW, RF, PRF, IMPL, TDD, VTS, VTD,
+        VTE, VTF, VTC, CO,MAIN,DEC;
+
+/*INOF,EXTS, FIN, NW, RF, PRF, VTB,INC,IMPL, TDD, VTS, VTE, VTF, VTC, CO, DEC,*/
+
+/*--------------------------SIMBOLOS NO TERMINALES--------------------------*/
+non terminal JAVA, DPACKAGE, IMPORTS, IMPORT, DECLA, COM, CLASE, DECS_GLOB, D_GLOB, CONTENT, VARIOS,METODO,
+MMAIN,CUERPO;
+
+
+/*CUERPO, INST, DEC, ASIG, STAT_B, VAL, EXPC, METODO, REE, EXP, TYPE,/* 
+/*PARAMS, PARAM, TY, STATMNT, SWITCH, L_CASES, CASE, BREAK, C_DEF, */
+/*DO, WHILE, FOR, IFEL, CLOS, EXPBOO;*/
+
+/*--------------------------INICIO DE LA GRAMATICA--------------------------*/
+start with JAVA;
+
+/*------------------------------INICIO DE CLASE------------------------------*/
+JAVA ::=
+    DPACKAGE IMPORTS DECLA
+;
+/*------------------------------DECLARACION DE PACKAGE------------------------------*/
+DPACKAGE ::=
+    PCK IDU FI
+;
+/*------------------------------DECLARACION DE IMPORT------------------------------*/
+IMPORTS ::=
+    IMPORTS IMPORT |
+;
+IMPORT ::=
+    IMP IDU CA IDU FI
+;
+/*------------------------------DECLARACION DE LA CLASE------------------------------*/
+DECLA ::=
+    COM CLASE| CLASE COM
+;
+COM ::=
+    CBL | CLN 
+;
+CLASE ::=
+    MA CL IDU LLA CONTENT LLC
+;
+/*------------------------------DECLARACION DEL CONTENIDO------------------------------*/
+CONTENT ::=
+   CONTENT VARIOS | 
+;
+VARIOS ::=
+    MAIN | DEC | METODO | DECS_GLOB
+;
+/*------------------------------DECLARACION DE VARIABLES GLOBALES------------------------------*/
+MMAIN ::=
+  MA ST TM MAIN PA STR COA COC IDU PC LLA CUERPO LLC 
+;
+CUERPO ::=
+ MA 
+;
