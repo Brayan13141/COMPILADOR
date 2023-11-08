@@ -5,15 +5,15 @@
 package compilador1;
 
 import Metodos.GRAMATICA;
+import OBJETOS_TABLA.OBJETO_T;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.CodingErrorAction;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +26,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
      */
     public PRINCIPAL() {
         initComponents();
+
     }
 
     /**
@@ -43,8 +44,11 @@ public class PRINCIPAL extends javax.swing.JFrame {
         TXTAREAINPUT = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnANALIZAR = new javax.swing.JButton();
+        BTNBUSCAR = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TABLA = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +58,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
         TXTAREAINPUT.setColumns(20);
         TXTAREAINPUT.setRows(5);
-        TXTAREAINPUT.setText("package X;\n\nclass Prueba;\n{\npublic static void main(String [] Args){\n\n}\n}");
+        TXTAREAINPUT.setText("package X;\n\nclass Prueba;\n{\npublic static void main(String [] Args){\nString b = \"CADENA\";\n}\n}");
         jScrollPane2.setViewportView(TXTAREAINPUT);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -63,43 +67,68 @@ public class PRINCIPAL extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("CODIGO DEPURADO");
 
-        jButton1.setText("ANALIZAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnANALIZAR.setText("ANALIZAR");
+        btnANALIZAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnANALIZARActionPerformed(evt);
             }
         });
 
-        jButton2.setText("BUSCAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BTNBUSCAR.setText("BUSCAR");
+        BTNBUSCAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BTNBUSCARActionPerformed(evt);
             }
         });
+
+        TABLA.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "LEXEMA", "TOKEN"
+            }
+        ));
+        jScrollPane3.setViewportView(TABLA);
+        if (TABLA.getColumnModel().getColumnCount() > 0) {
+            TABLA.getColumnModel().getColumn(0).setResizable(false);
+            TABLA.getColumnModel().getColumn(1).setResizable(false);
+            TABLA.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("TABLA DE SIMBOLOS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(302, 302, 302))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1)
+                        .addGap(51, 51, 51)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(173, 173, 173)
-                        .addComponent(jLabel2))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnANALIZAR, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(172, 172, 172)
+                .addComponent(jLabel1)
+                .addGap(72, 72, 72)
+                .addComponent(BTNBUSCAR, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(135, 135, 135)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(179, 179, 179))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,43 +136,62 @@ public class PRINCIPAL extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addComponent(jLabel1)
                         .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BTNBUSCAR, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnANALIZAR, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(402, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GRAMATICA A = new GRAMATICA();
+    DefaultTableModel Modelo1 = new DefaultTableModel();
 
+    private void btnANALIZARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnANALIZARActionPerformed
+        GRAMATICA A = new GRAMATICA();
         try {
-            TXTCODIGODEPURADO.setText(A.depurarCodigo(TXTAREAINPUT.getText()));
-            ArrayList<String> Cortes = A.DIVIDIRCODIGO(TXTAREAINPUT.getText());
-            String cadenas = "";
-            for (String palabras : Cortes) {
-                cadenas += palabras + "\n";
+            Modelo1.addColumn("ID");
+            Modelo1.addColumn("LEXEMA");
+            Modelo1.addColumn("TOKEN");
+            TABLA.setModel(Modelo1);
+            String Codigo = TXTAREAINPUT.getText();
+            TXTCODIGODEPURADO.setText(A.depurarCodigo(Codigo));
+            String[] b = A.DIVIDIRCODIGO(A.depurarCodigo(Codigo));
+            ArrayList<String> c = A.DIVIDIRFINAL(b);
+            ArrayList<OBJETO_T> LISTAT = A.CLASIFICAR(c);
+            int id = 1;
+            for (OBJETO_T O : LISTAT) {
+                String ID = String.valueOf(id);
+                if (O.getTOKEN() == "IDU") {
+                    String Objeto[] = {ID, O.getLexema(), O.getTOKEN()};
+                    id++;
+                    Modelo1.addRow(Objeto);
+                } else {
+                    String Objeto2[] = {null, O.getLexema(), O.getTOKEN()};
+                    Modelo1.addRow(Objeto2);
+                }
+
             }
 
-            TXTAREAINPUT.setText(cadenas);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnANALIZARActionPerformed
+
+    private void BTNBUSCARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNBUSCARActionPerformed
         try {
             JFileChooser BuscadorA = new JFileChooser();
             BuscadorA.showOpenDialog(null);
@@ -163,7 +211,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BTNBUSCARActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,13 +250,16 @@ public class PRINCIPAL extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTNBUSCAR;
+    private javax.swing.JTable TABLA;
     private javax.swing.JTextArea TXTAREAINPUT;
     private javax.swing.JTextArea TXTCODIGODEPURADO;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnANALIZAR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }
