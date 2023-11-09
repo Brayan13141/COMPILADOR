@@ -111,7 +111,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="package X;&#xa;&#xa;class Prueba;&#xa;{&#xa;public static void main(String [] Args){&#xa;String b = &quot;CADENA&quot;;&#xa;}&#xa;}"/>
+            <Property name="text" type="java.lang.String" value="package X;&#xa;&#xa;class Prueba;&#xa;{&#xa;/*akmNHUBHCWC&#xa;CAWEJVNAWV&#xa;CAWEFV*/&#xa;public static void main(String [] Args){&#xa;String b = &quot;CADENA&quot;;&#xa;}&#xa;}"/>
           </Properties>
         </Component>
       </SubComponents>

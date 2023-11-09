@@ -4,7 +4,8 @@
  */
 package compilador1;
 
-import Metodos.GRAMATICA;
+import GRAMATICA.GRAMATICA;
+import Metodos.PROC_CODIGO;
 import OBJETOS_TABLA.OBJETO_T;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,7 +59,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
         TXTAREAINPUT.setColumns(20);
         TXTAREAINPUT.setRows(5);
-        TXTAREAINPUT.setText("package X;\n\nclass Prueba;\n{\npublic static void main(String [] Args){\nString b = \"CADENA\";\n}\n}");
+        TXTAREAINPUT.setText("package X;\n\nclass Prueba;\n{\n/*akmNHUBHCWC\nCAWEJVNAWV\nCAWEFV*/\npublic static void main(String [] Args){\nString b = \"CADENA\";\n}\n}");
         jScrollPane2.setViewportView(TXTAREAINPUT);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -160,31 +161,23 @@ public class PRINCIPAL extends javax.swing.JFrame {
     DefaultTableModel Modelo1 = new DefaultTableModel();
 
     private void btnANALIZARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnANALIZARActionPerformed
-        GRAMATICA A = new GRAMATICA();
+        PROC_CODIGO A = new PROC_CODIGO();
+        GRAMATICA GRAMATICA = new GRAMATICA();
         try {
             Modelo1.addColumn("ID");
             Modelo1.addColumn("LEXEMA");
             Modelo1.addColumn("TOKEN");
             TABLA.setModel(Modelo1);
             String Codigo = TXTAREAINPUT.getText();
-            TXTCODIGODEPURADO.setText(A.depurarCodigo(Codigo));
+            String CodigoDepu = A.depurarCodigo(Codigo);
+            TXTCODIGODEPURADO.setText(A.Agregar(A.getEspacios(), CodigoDepu));
+            // TXTCODIGODEPURADO.setText(CodigoDepu);
             String[] b = A.DIVIDIRCODIGO(A.depurarCodigo(Codigo));
             ArrayList<String> c = A.DIVIDIRFINAL(b);
             ArrayList<OBJETO_T> LISTAT = A.CLASIFICAR(c);
-            int id = 1;
-            for (OBJETO_T O : LISTAT) {
-                String ID = String.valueOf(id);
-                if (O.getTOKEN() == "IDU") {
-                    String Objeto[] = {ID, O.getLexema(), O.getTOKEN()};
-                    id++;
-                    Modelo1.addRow(Objeto);
-                } else {
-                    String Objeto2[] = {null, O.getLexema(), O.getTOKEN()};
-                    Modelo1.addRow(Objeto2);
-                }
+            LLENARTABLA(LISTAT);    
 
-            }
-
+            GRAMATICA.VALIDAR_PCK(LISTAT);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR: " + e);
         }
@@ -212,6 +205,20 @@ public class PRINCIPAL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }//GEN-LAST:event_BTNBUSCARActionPerformed
+    public void LLENARTABLA(ArrayList<OBJETO_T> LISTAT) {
+        int id = 1;
+        for (OBJETO_T O : LISTAT) {
+            String ID = String.valueOf(id);
+            if (O.getTOKEN() == "IDU") {
+                String Objeto[] = {ID, O.getLexema(), O.getTOKEN()};
+                id++;
+                Modelo1.addRow(Objeto);
+            } else {
+                String Objeto2[] = {null, O.getLexema(), O.getTOKEN()};
+                Modelo1.addRow(Objeto2);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
