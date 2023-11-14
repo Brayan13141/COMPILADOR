@@ -27,7 +27,16 @@ public class PRINCIPAL extends javax.swing.JFrame {
      */
     public PRINCIPAL() {
         initComponents();
+        Modelo1.addColumn("ID");
+        Modelo1.addColumn("LEXEMA");
+        Modelo1.addColumn("TOKEN");
+        TABLA.setModel(Modelo1);
 
+        Modelo2.addColumn("LINEA");
+        Modelo2.addColumn("TIPO");
+        Modelo2.addColumn("ERROR");
+        Modelo2.addColumn("DESCRIPCION");
+        TABLA2.setModel(Modelo2);
     }
 
     /**
@@ -50,6 +59,8 @@ public class PRINCIPAL extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TABLA = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TABLA2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,7 +70,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
         TXTAREAINPUT.setColumns(20);
         TXTAREAINPUT.setRows(5);
-        TXTAREAINPUT.setText("package X;\n\nclass Prueba;\n{\n/*akmNHUBHCWC\nCAWEJVNAWV\nCAWEFV*/\npublic static void main(String [] Args){\nString b = \"CADENA\";\n}\n}");
+        TXTAREAINPUT.setText("package x;\npublic class MethodExample {\n    public static void main(String[] args) {\n        // Llamada al método\n        greet(\"Mariana\");\n        int resultado = sum(5, 3);\n    }\n\n    // Método que imprime un saludo\n    static void greet(String nombre) {\n    }\n\n    // Método que retorna la suma de dos números\n    static int sum(int a, int b) {\n        return a + b;\n    }\n}\n");
         jScrollPane2.setViewportView(TXTAREAINPUT);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -103,12 +114,28 @@ public class PRINCIPAL extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("TABLA DE SIMBOLOS");
 
+        TABLA2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "LINEA", "TIPO", "ERROR", "DESCRIPCION"
+            }
+        ));
+        jScrollPane4.setViewportView(TABLA2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(btnANALIZAR, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,8 +144,8 @@ public class PRINCIPAL extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(btnANALIZAR, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(63, 63, 63)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(72, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(172, 172, 172)
@@ -152,13 +179,16 @@ public class PRINCIPAL extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(btnANALIZAR, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     DefaultTableModel Modelo1 = new DefaultTableModel();
+    DefaultTableModel Modelo2 = new DefaultTableModel();
 
     private void btnANALIZARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnANALIZARActionPerformed
         PROC_CODIGO A = new PROC_CODIGO();
@@ -175,7 +205,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
             String[] b = A.DIVIDIRCODIGO(A.depurarCodigo(Codigo));
             ArrayList<String> c = A.DIVIDIRFINAL(b);
             ArrayList<OBJETO_T> LISTAT = A.CLASIFICAR(c);
-            LLENARTABLA(LISTAT);    
+            LLENARTABLA(LISTAT);
 
             GRAMATICA.VALIDAR_PCK(LISTAT);
         } catch (Exception e) {
@@ -259,6 +289,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNBUSCAR;
     private javax.swing.JTable TABLA;
+    private javax.swing.JTable TABLA2;
     private javax.swing.JTextArea TXTAREAINPUT;
     private javax.swing.JTextArea TXTCODIGODEPURADO;
     private javax.swing.JButton btnANALIZAR;
@@ -268,5 +299,6 @@ public class PRINCIPAL extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 }

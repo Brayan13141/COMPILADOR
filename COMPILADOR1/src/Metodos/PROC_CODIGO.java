@@ -1,6 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+     * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+     * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Metodos;
 
@@ -17,44 +17,45 @@ import javax.swing.JTable;
 public class PROC_CODIGO {
 
     public ArrayList<Integer> espacios = new ArrayList<Integer>();
+    public ArrayList<Integer> Linea = new ArrayList<Integer>();
 
-//--------------------------------------------OBTENER ESPACIOS--------------------------------------------
+    //--------------------------------------------OBTENER ESPACIOS--------------------------------------------
     public ArrayList<Integer> getEspacios() {
         return espacios;
     }
-//--------------------------------------------DEPURAR CODIGO--------------------------------------------
+    //--------------------------------------------DEPURAR CODIGO--------------------------------------------
 
     public String depurarCodigo(String Codigo) {
         String codigo = Codigo;
         int contadorSalto = 0;
         String corte1 = "", a = "";
-//SE HACE UN RECORRIDO PARA CADA CARACTER EN LA CADENA codigo (for)
+        //SE HACE UN RECORRIDO PARA CADA CARACTER EN LA CADENA codigo (for)
         for (int i = 0; i < codigo.length(); i++) {
-//SR CREA UN CORTE PARA GUARDAR EL CARACTER
+            //SR CREA UN CORTE PARA GUARDAR EL CARACTER
             corte1 = codigo.substring(i, i + 1);
             if (!corte1.equals("")) {
-//SI ENCUENTRA UN SALTO DE LINEA AÑADE LA POSICION A UN ARRAYLIST PARA DESPUES AGREGAR LOS SALTOS DE LINEA Y SE PUEDA LEER MEJOR
+                //SI ENCUENTRA UN SALTO DE LINEA AÑADE LA POSICION A UN ARRAYLIST PARA DESPUES AGREGAR LOS SALTOS DE LINEA Y SE PUEDA LEER MEJOR
                 if (corte1.equals("\n")) {
-                    a += " ";
+                    a += " 1linea";
                     espacios.add(contadorSalto);
-//SI ENCUENTRA UNA DIAGONAL Y EL SIGUIENTE CARACTER ES UN ASTERISCO SIGNIFICA QUE COMIENZA UN COMENTARIO
+                    //SI ENCUENTRA UNA DIAGONAL Y EL SIGUIENTE CARACTER ES UN ASTERISCO SIGNIFICA QUE COMIENZA UN COMENTARIO
                 } else if (corte1.equals("/") && codigo.substring(i + 1, i + 2).equals("*")) {
                     int h = i + 2;
                     String corte2 = "";
-//SE RECORRE TODO EL COMENTARIO CON UN FOR INFINITO HASTA ENCONTRAR EL CIERRE DE OTRO COMENTARIO
+                    //SE RECORRE TODO EL COMENTARIO CON UN FOR INFINITO HASTA ENCONTRAR EL CIERRE DE OTRO COMENTARIO
                     for (;;) {
                         corte2 = codigo.substring(h, h + 1);
                         if (corte2.equals("*") && codigo.substring(h + 1, h + 2).equals("/")) {
-//CUANDO SE ENCUENTRA CON EL FINAL DEL COMENTARIO LA VARIABLE i QUE LLEVA EL CONTROL DE EN CUAL CARACTER VAMOS
-//SE IGUALA A LO QUE VALE h QUE ES LA VARIABLE QUE CONTROLA EN QUE CARACTER VAMOS DEL COMENTARIO Y MUTUAMENTE
-//CON LA SUMA DE h & i TENEMOS EL TOTAL DEL CARACTER EN EL QUE NOS ENCONTRAMOS DE TODO EL CODIGO
+                            //CUANDO SE ENCUENTRA CON EL FINAL DEL COMENTARIO LA VARIABLE i QUE LLEVA EL CONTROL DE EN CUAL CARACTER VAMOS
+                            //SE IGUALA A LO QUE VALE h QUE ES LA VARIABLE QUE CONTROLA EN QUE CARACTER VAMOS DEL COMENTARIO Y MUTUAMENTE
+                            //CON LA SUMA DE h & i TENEMOS EL TOTAL DEL CARACTER EN EL QUE NOS ENCONTRAMOS DE TODO EL CODIGO
                             i = h + 1;
                             break;
                         }
                         h++;
                     }
-//COMENTARIOS DE LINEA, HACE EXACTAMENTE LO ANTERIOR PERO SE DETIENE CUANDO ENCUENTRA UN SALTO DE LINEA LO QUE SIGNIFICA QUE EL 
-//COMENTARIO DE LINEA TERMINO
+                    //COMENTARIOS DE LINEA, HACE EXACTAMENTE LO ANTERIOR PERO SE DETIENE CUANDO ENCUENTRA UN SALTO DE LINEA LO QUE SIGNIFICA QUE EL 
+                    //COMENTARIO DE LINEA TERMINO
                 } else if (corte1.equals("/") && codigo.substring(i + 1, i + 2).equals("/")) {
                     int h = i + 2;
                     String corte2 = "";
@@ -68,8 +69,8 @@ public class PROC_CODIGO {
                     }
                 }//LA FUNCION DE ESTE CODIGO ES IGNORAR LOS SALTOS DE LINEA Y COMENTARIOS MEDIANTE FILTROS 
                 else {
-//SI LOS CARACTERES ANALIZADOS NO CONCUERDAN CON NINGUN if SE AGREGARAN A UNA NUEVA VARIABLE QUE ES LA QUE
-//LLEVA EL CODIGO DEPURADO(corte1) ES DECIR SI NO ES COMENTARIO O SALTO DE LINEA LO AGREGA AL CODIGO 
+                    //SI LOS CARACTERES ANALIZADOS NO CONCUERDAN CON NINGUN if SE AGREGARAN A UNA NUEVA VARIABLE QUE ES LA QUE
+                    //LLEVA EL CODIGO DEPURADO(corte1) ES DECIR SI NO ES COMENTARIO O SALTO DE LINEA LO AGREGA AL CODIGO 
                     a += corte1;
                 }
 
@@ -78,7 +79,7 @@ public class PROC_CODIGO {
         }
         return a;
     }
-//--------------------------------------------AGREGAR ESPACIOS--------------------------------------------
+    //--------------------------------------------AGREGAR ESPACIOS--------------------------------------------
 
     public String Agregarespacios(ArrayList A, String B) {
         int a = 0;
@@ -98,7 +99,7 @@ public class PROC_CODIGO {
         }
         return nuevo;
     }
-//--------------------------------------------DIVIDIR SALTOS DE LINEA--------------------------------------------
+    //--------------------------------------------DIVIDIR SALTOS DE LINEA--------------------------------------------
 
     public String Agregar(ArrayList A, String B) {
         int Control = 0;
@@ -121,14 +122,14 @@ public class PROC_CODIGO {
         return nuevo;
     }
 
-//--------------------------------------------DIVIDIR CODIGO--------------------------------------------
+    //--------------------------------------------DIVIDIR CODIGO--------------------------------------------
     public String[] DIVIDIRCODIGO(String codigo) {
         String[] corte1;
         corte1 = codigo.split(" ");
         return corte1;
     }
-//-------------------------------------------VALIDAR PACKAGE--------------------------------------------
-//int a = 12;
+    //-------------------------------------------VALIDAR PACKAGE--------------------------------------------
+    //int a = 12;
 
     public ArrayList<String> DIVIDIRFINAL(String[] Codigo) {
         ArrayList<String> Arregloreturn = new ArrayList();
@@ -226,13 +227,17 @@ public class PROC_CODIGO {
             int limite = TOK.length;
             int inicio = 0;
             for (String[] TOKEN : TOK) {
-                if (Cadena.matches(TOKEN[0])) {
-                    OBJETO_T NUEVOITEM = new OBJETO_T(Cadena, TOKEN[1]);
-                    LISTAT.add(NUEVOITEM);
+                if(Cadena.matches("1linea"))
+                {
+                
+                }
+                else if (Cadena.matches(TOKEN[0])) {
+                    //OBJETO_T NUEVOITEM = new OBJETO_T(Cadena, TOKEN[1]);
+                   // LISTAT.add(NUEVOITEM);
                     break;
                 } else if (inicio == limite - 1) {
-                    OBJETO_T NUEVOITEM = new OBJETO_T(Cadena, "INDEFINIDO");
-                    LISTAT.add(NUEVOITEM);
+                   // OBJETO_T NUEVOITEM = new OBJETO_T(Cadena, "INDEFINIDO");
+                  //  LISTAT.add(NUEVOITEM);
                 } else {
                     inicio++;
                 }

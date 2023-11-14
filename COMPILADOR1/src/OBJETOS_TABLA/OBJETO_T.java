@@ -10,13 +10,25 @@ package OBJETOS_TABLA;
  * @author Guillermo Mata
  */
 public class OBJETO_T {
+    String Linea;
     String Lexema;
     String TOKEN;
 
-    public OBJETO_T(String Lexema,String TOKEN) {
+    public OBJETO_T(String Linea, String Lexema, String TOKEN) {
+        this.Linea = Linea;
         this.Lexema = Lexema;
         this.TOKEN = TOKEN;
     }
+
+    public String getLinea() {
+        return Linea;
+    }
+
+    public void setLinea(String Linea) {
+        this.Linea = Linea;
+    }
+
+
     public String getLexema() {
         return Lexema;
     }
