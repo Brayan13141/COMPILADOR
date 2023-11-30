@@ -5,7 +5,7 @@
 package METODO_CODIGO;
 
 import METODOS_GRAMATICA.PCK_CLASS;
-import GRAMATICA.TOKENS;
+import TOKENS.TOKENS;
 import OBJETOS_TABLA.ERROR;
 import OBJETOS_TABLA.OBJETO_T;
 import java.awt.List;

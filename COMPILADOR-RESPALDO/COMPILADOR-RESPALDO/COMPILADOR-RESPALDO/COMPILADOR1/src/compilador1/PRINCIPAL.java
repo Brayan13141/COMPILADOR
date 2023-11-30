@@ -71,7 +71,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
         TXTAREAINPUT.setColumns(20);
         TXTAREAINPUT.setRows(5);
-        TXTAREAINPUT.setText("package x;\npublic class Student {\n  int a = 2 * 10 + (60 / 30 * 23);\n\n}");
+        TXTAREAINPUT.setText("package x;\npublic class Student {\n  int a = 2 * 10 + (60 / 30 * 23);\n  public int VALIDAR(int a, int b){\n\n }\n}");
         jScrollPane2.setViewportView(TXTAREAINPUT);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

@@ -29,9 +29,8 @@ public class TYPE {
     }
 
     DECLARACIONVALOR DECLARACIONVALOR = new DECLARACIONVALOR();
-
     public ArrayList<ERROR> VALIDARTY(ArrayList<OBJETO_T> listaTokens) {
-        if (listaTokens.get(0).getTOKEN() == "ID" || DECLARACIONVALOR.VALIDAR_VALOR(listaTokens.get(0)) || listaTokens.get(0).getTOKEN() == "STR") {
+        if (listaTokens.get(0).getTOKEN() == "ID" || listaTokens.get(0).getTOKEN() == "TD" || listaTokens.get(0).getTOKEN() == "STR") {
             listaTokens.remove(0);
             return errores;
         } else {

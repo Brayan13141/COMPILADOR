@@ -5,7 +5,7 @@
  */
 package METODOS_GRAMATICA;
 
-import GRAMATICA.TOKENS;
+import TOKENS.TOKENS;
 import OBJETOS_TABLA.ERROR;
 import OBJETOS_TABLA.OBJETO_T;
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class VARIOS {
 
     public ArrayList<ERROR> errores = new ArrayList<ERROR>();
+    METODO M = new METODO();
 
     public ArrayList<ERROR> VALIDARVARIOS(ArrayList<OBJETO_T> listaTokens) {
         int count = 0;
@@ -41,21 +42,22 @@ public class VARIOS {
                 } else {
                     for (ERROR E : DECLARACION.VALIDARDECLARACION(listaTokens)) {
                         errores.add(E);
+                        while(listaTokens.size()>1)
+                        {
+                            listaTokens.remove(0);
+                        }
                         return errores;
                     }
                     break;
                 }
 
-            }
-            else if(listaTokens.get(0).getTOKEN() == "TD")
-            {
-                
+            } else if (listaTokens.get(0).getTOKEN() == "MA") {
+                if (M.VALIDARMETODO(listaTokens).isEmpty()) {
+                    return errores;
+                }
             }
 
         }
-//        for (ERROR E : DECLARACION.VALIDARDECLARACION(listaTokens)) {
-//            errores.add(E);
-//        }
 
         return errores;
     }

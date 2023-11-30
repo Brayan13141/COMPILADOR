@@ -5,7 +5,7 @@
  */
 package METODOS_GRAMATICA;
 
-import GRAMATICA.TOKENS;
+import TOKENS.TOKENS;
 import OBJETOS_TABLA.OBJETO_T;
 import java.util.ArrayList;
 
