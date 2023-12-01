@@ -31,7 +31,6 @@ public class TYPE {
     DECLARACIONVALOR DECLARACIONVALOR = new DECLARACIONVALOR();
     public ArrayList<ERROR> VALIDARTY(ArrayList<OBJETO_T> listaTokens) {
         if (listaTokens.get(0).getTOKEN() == "ID" || listaTokens.get(0).getTOKEN() == "TD" || listaTokens.get(0).getTOKEN() == "STR") {
-            listaTokens.remove(0);
             return errores;
         } else {
             ERROR NUEVOITEM = new ERROR(listaTokens.get(0).getLinea(), "SINTACTICO", listaTokens.get(0).getLexema(), "SE ESPERABA UN ID||TD||STR||TM");

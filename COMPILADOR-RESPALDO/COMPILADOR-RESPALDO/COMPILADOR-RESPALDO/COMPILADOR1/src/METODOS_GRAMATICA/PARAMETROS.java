@@ -20,12 +20,20 @@ public class PARAMETROS {
 
     public ArrayList<ERROR> VALIDARPARAMETROS(ArrayList<OBJETO_T> listaTokens) {
         if (T.VALIDARTY(listaTokens).isEmpty()) {
-            if (listaTokens.get(0).getTOKEN() == "ID") {
+            listaTokens.remove(0);
+            if (listaTokens.get(0).getTOKEN() == "IDU") {
                 listaTokens.remove(0);
-                if (listaTokens.get(0).getTOKEN() == "CO") {
+                if (listaTokens.get(0).getTOKEN() == "PC") {
+                    return errores;
+                } else if (listaTokens.get(0).getTOKEN() == "CO") {
                     listaTokens.remove(0);
                     VALIDARPARAMETROS(listaTokens);
-                }else{
+                } else {
+                    if (listaTokens.get(1).getTOKEN() == "PC" && listaTokens.get(0).getTOKEN() != "CO") {
+                        ERROR NUEVOITEM = new ERROR(listaTokens.get(0).getLinea(), "SINTACTICO", listaTokens.get(0).getLexema(), "SE ESPERABA UNA CO");
+                        errores.add(NUEVOITEM);
+                        return errores;
+                    }
                     return errores;
                 }
             } else {

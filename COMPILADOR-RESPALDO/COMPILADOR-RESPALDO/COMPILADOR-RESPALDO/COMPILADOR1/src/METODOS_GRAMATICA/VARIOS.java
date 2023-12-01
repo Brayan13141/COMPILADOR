@@ -18,7 +18,7 @@ public class VARIOS {
 
     public ArrayList<ERROR> errores = new ArrayList<ERROR>();
     METODO M = new METODO();
-
+DECLARACION DECLARACION = new DECLARACION();
     public ArrayList<ERROR> VALIDARVARIOS(ArrayList<OBJETO_T> listaTokens) {
         int count = 0;
         TOKENS A = new TOKENS();//CREAMOS EL OBJETO DE TOKENS Y OBTENEMOS LOS TOKENS
@@ -31,7 +31,7 @@ public class VARIOS {
                 break;
             }
         }
-        DECLARACION DECLARACION = new DECLARACION();
+        
         while (listaTokens.size() > 1)//LOS ERRORES VERIFICAMOS CUANTOS SON Y EL QUE GENERE MENOS ES POR LA OPCION QUE ESTABA BIEN
         {
             //DECLARACIONES == int a= 12; etc.. 
